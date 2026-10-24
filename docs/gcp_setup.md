@@ -32,6 +32,20 @@ Si `bq` falla con *"Error retrieving auth credentials"* es porque no encuentra
 $env:Path += ";C:\Users\miket\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin"
 ```
 
+## Gotcha documentado (vector de pérdida de datos)
+
+Un `bq load --time_partitioning_field=fecha` puede **heredar una expiración de
+partición de 60 días** aunque nadie la haya pedido: el job reporta SUCCESS y 1.5M
+`outputRows`, pero las particiones 2015-2024 cuentan como ya vencidas (QUERY devuelve
+0 filas) y el reaper físico puede borrarlas. Si la expiración se anula con
+`ALTER TABLE ... SET OPTIONS (partition_expiration_days = NULL)` **antes** de que
+el reaper actúe, los datos reviven. Después, no. Verificación de confianza:
+
+```bash
+bq show aire-monterrey-bq:sima.sima_horarios   # ¿expirationMs? ¿Total Rows?
+bq query "SELECT COUNT(*) FROM \`...sima.sima_horarios\`"   # confirma filas reales
+```
+
 ## Costo
 
 - **Sandbox gratuito**: 1 TB de consultas/mes + 10 GB de almacenamiento.
