@@ -28,6 +28,14 @@ el modelo ELT completo queda reproducible: API → parquet → BigQuery → dash
 
 ## Cómo montar el proyecto (tareas)
 
+> **ESTADO: publicado ✅ (24-oct-2026)**
+> https://datastudio.google.com/reporting/fe47cccc-d1c9-4392-97d0-605069f4096c
+> Montado con conexión directa a la tabla `sima_horarios` (las filas ya vienen
+> validadas del downloader); campo calculado por parámetro (`CASE WHEN param`),
+> dimensión temporal en granularidad "Año y mes", métricas con agregación Media
+> y cálculo acumulativo Ninguna, O3 en eje derecho, scorecards con rango fijo
+> 2015/2024.
+
 1. **Conectar:** Looker Studio → BigQuery dataset `sima` (proyecto `aire-monterrey-bq`).
 
 ## Pasos para publicar el dashboard (4 pasos, ~10 min)
