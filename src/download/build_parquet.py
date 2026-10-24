@@ -25,9 +25,11 @@ def load_raw() -> pd.DataFrame:
     id2code = dict(zip(stations["id"], stations["codigo"]))
     frames = []
     for f in sorted(RAW_DIR.glob("sinaica_*_*.jsonl.gz")):
-        est_id, param = f.stem.replace("sinaica_", "").split("_", 1)
+        # stem de "x.jsonl.gz" deja la cola ".jsonl": cortarla para obtener el param real
+        base = f.stem.split(".")[0]                     # "sinaica_148_O3"
+        est_id, param = base.replace("sinaica_", "").split("_", 1)
         est_id = int(est_id)
-        param = param.replace("_", ".")
+        param = param.replace("_", ".")                 # "PM2_5" -> "PM2.5"
         rows = [json.loads(line) for line in gzip.open(f, "rt", encoding="utf-8")]
         if not rows:
             continue
