@@ -1,5 +1,6 @@
 # Datos crudos (millones de filas, no van a git)
 data/raw/*
+data/download_log.txt
 !data/raw/.gitkeep
 
 # Datos procesados
