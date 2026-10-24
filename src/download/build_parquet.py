@@ -41,11 +41,13 @@ def load_raw() -> pd.DataFrame:
         raise SystemExit("No hay archivos raw. Corre primero sinaica_download.py")
     big = pd.concat(frames, ignore_index=True)
 
-    big["fecha"] = pd.to_datetime(big["fecha"])
+    big["fecha"] = pd.to_datetime(big["fecha"]).dt.date   # DATE (no TIMESTAMP): será campo de partición en BQ
     big["hora"] = big["hora"].astype(int)
     big["valor"] = pd.to_numeric(big["valor"], errors="coerce")
     big["val"] = big["val"].astype(int)
     big = big.dropna(subset=["valor"])
+    # idempotencia: una re-ejecución del downloader añade duplicados; no re-contar aquí
+    big = big.drop_duplicates(subset=["estacion_id", "param", "fecha", "hora"])
     big = big.rename(columns={"val": "validado"})
     big["valor"] = big["valor"].astype(float)
     return big[["estacion_id", "estacion", "param", "fecha", "hora", "valor", "validado"]]

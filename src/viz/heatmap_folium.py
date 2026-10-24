@@ -34,7 +34,7 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
     subset = data[data["param"] == param]
     if year is not None:
         subset = subset[subset["fecha"].dt.year == year]
-        titulo = f"{param} · Montreal AQM · {year}"
+        titulo = f"{param} · AMM · {year}"
     else:
         titulo = f"{param} · media decenial 2015-2024"
 

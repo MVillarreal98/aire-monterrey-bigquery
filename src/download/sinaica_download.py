@@ -3,7 +3,8 @@ Descarga de datos horarios VALIDADOS de la red Monterrey (SIMA/INECC) vía la AP
 
 API documentada en docs/sinaica_api.md.
 Descarga por estación × contaminante × mes → data/raw/ (JSONL gz).
-Envolvente reanudable: si el archivo ya existe y está consistente, se salta.
+No es reanudable (el append acumula): si se re-ejecuta, build_parquet.py
+elimina los duplicados con drop_duplicates (transformación idempotente).
 
 Uso:
     python src/download/sinaica_download.py
