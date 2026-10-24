@@ -1,8 +1,7 @@
 pandas>=2.0
 requests>=2.31
 google-cloud-bigquery>=3.19
-folium>=0.17
-folium.plugins
+folium>=0.17   # plugins vienen dentro (folium.plugins.HeatMap)
 matplotlib>=3.8
 pyarrow>=15.0   # para to_parquet / BigQuery load
 openpyxl        # si SIMA entrega .xlsx

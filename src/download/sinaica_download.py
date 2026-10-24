@@ -117,11 +117,11 @@ def main() -> None:
                 rows = download_month(session, est_id, param, y, m)
                 total_requests += 1
                 if rows is None:
-                    print(f"  ❌ {est_id} {param} {y}-{m:02d}: fallo definitivo")
+                    print(f"  [FAILED] {est_id} {param} {y}-{m:02d}: fallo definitivo")
                     continue
                 if rows:
                     append_rows(target, rows)
-                print(f"  ✅ est {est_id} ({nombre}) {param} {y}-{m:02d}: {len(rows)} filas")
+                print(f"  [OK] est {est_id} ({nombre}) {param} {y}-{m:02d}: {len(rows)} filas")
                 time.sleep(SLEEP_SECONDS)
 
     print(f"\nTerminal: {total_requests} peticiones. Archivos en {RAW_DIR}")
