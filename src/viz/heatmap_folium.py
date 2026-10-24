@@ -24,7 +24,6 @@ from folium.plugins import HeatMap
 REPO = Path(__file__).resolve().parents[2]
 PARQUET = REPO / "data" / "processed" / "sima_horarios.parquet"
 STATIONS_CSV = REPO / "docs" / "stations.csv"
-OUT = REPO / "outputs"
 
 # Centro geográfico del Área Metropolitana de Monterrey
 MTY_CENTER = [25.6866, -100.3161]
@@ -44,12 +43,16 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
 
     # Escala del peso del heatmap: libertad relativa entre contaminantes
     # PM2.5 en µg/m3 (nominal 10); O3 en ppm (norma 0.090) → normalizamos por norma
+    # y remapeamos por el max del mapa: la estación más cargada siempre = 1.0
+    # (sin esto O3 queda ~0.3 en todas y el gradiente no se distingue)
     if param == "PM2.5":
-        est["peso"] = est["media"] / 41.0  # norma diaria
+        peso = est["media"] / 41.0  # norma diaria
     else:
-        est["peso"] = (est["media"] * 1000.0) / 90.0  # ppm → ppb relativo a norma horaria
+        peso = (est["media"] * 1000.0) / 90.0  # ppm → ppb relativo a norma horaria
+    est["peso"] = (peso / peso.max()).clip(0.15, 1.0)
 
-    m = folium.Map(location=MTY_CENTER, zoom_start=10.5, tiles="CartoDB positron")
+    m = folium.Map(location=MTY_CENTER, zoom_start=10.5, tiles="OpenStreetMap")
+    fmt = "{:.3f}" if param == "O3" else "{:.1f}"   # O3 en ppm necesita 3 decimales
     HeatMap(
         est[["lat", "lon", "peso"]].values.tolist(),
         radius=25,
@@ -60,14 +63,25 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
     for _, row in est.iterrows():
         folium.CircleMarker(
             location=[row["lat"], row["lon"]],
-            tooltip=(
+            tooltip=folium.Tooltip(
                 f"{row['nombre']} ({row['codigo']}) · {row['municipio']}\n"
-                f"media {param} = {row['media']:.3f}"
+                f"media {param} = {row['media']:.2f}{' ppm' if param == 'O3' else ' µg/m³'}",
+                permanent=False,
             ),
             radius=5,
             color="black",
             fill=True,
             fill_opacity=0.8,
+        ).add_to(m)
+        # etiqueta permanente con el valor (sin ella, la captura PNG no muestra datos)
+        folium.Marker(
+            location=[row["lat"], row["lon"]],
+            icon=folium.features.DivIcon(
+                icon_size=(40, 16),
+                icon_anchor=(20, 14),
+                html=f"<div style='font-size:11px;font-weight:bold;color:#111;"
+                f"text-shadow:1px 1px 2px white,-1px -1px 2px white'>{fmt.format(row['media'])}</div>",
+            ),
         ).add_to(m)
 
     titulo_html = f"<h4 style='text-align:center;margin:4px'>{titulo}</h4>"

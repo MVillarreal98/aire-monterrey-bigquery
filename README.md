@@ -46,6 +46,24 @@ pip install -r requirements.txt
 BigQuery: autenticar con `gcloud auth application-default login`
 (sandbox de GCP permite consultar gratis; los datasets públicos cuentan aparte del cupo).
 
+## Evidencias
+
+**Tendencia del decenio** — PM2.5 mejoró −20 % (aún 2× la norma anual), O3 empeoró +27 %:
+
+![Tendencia anual 2015-2024](docs/img/fig_tendencia_anual.png)
+
+**Heatmap PM2.5 sobre mapa real**: 2015 (7 estaciones) vs 2024 (red completa). El
+hotspot migró del poniente-centro (La Pastora) al sureste (Benito Juárez):
+
+| 2015 | 2024 |
+|---|---|
+| ![PM2.5 2015](docs/img/heatmap_pm25_2015.png) | ![PM2.5 2024](docs/img/heatmap_pm25_2024.png) |
+
+**El resto de la evidencia** en [`docs/resultados_2015_2024.md`](docs/resultados_2015_2024.md)
+y `docs/img/` (O3 2024, media decenal, ranking por estación, contingencias, peores días).
+
+**Dashboard:** 🔗 *link pendiente — pasos de publicación en `dashboards/looker_studio_spec.md`*
+
 ## Estado
 
 - [x] Estructura del repo

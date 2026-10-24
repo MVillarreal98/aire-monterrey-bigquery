@@ -27,14 +27,22 @@ el modelo ELT completo queda reproducible: API → parquet → BigQuery → dash
 - Segmento de serie anual de contingencias probables.
 
 ## Cómo montar el proyecto (tareas)
-1. **Conectar:** Looker Studio → BigQuery dataset `sima` (proyecto `aire-mty`).
-2. **Campos calculados:** % cambio vs 2015 = media anual / media 2015 − 1.
-3. **Controles:** desplegable de año, desplegable de estación, rango de fechas.
-4. **Filtrado por hora válida:** usar filtros / SQL: mantener solo `validado = 1`:
-   hacerlo preferible en una vista BQ (`CREATE VIEW ... WHERE validado = 1`)
-   para no repetir condición en cada gráfica del dashboard.
-5. **Compartir:** enlace público de lectura (pub.aaas) — el LINK del dashboard
-   se agrega aquí cuando esté publicado.
+
+1. **Conectar:** Looker Studio → BigQuery dataset `sima` (proyecto `aire-monterrey-bq`).
+
+## Pasos para publicar el dashboard (4 pasos, ~10 min)
+
+1. Conecta los datos: en [lookerstudio.google.com](https://lookerstudio.google.com) →
+   **Blank report → Add data → BigQuery** → selecciona proyecto `aire-monterrey-bq` →
+   dataset `sima` → tabla `sima_horarios`. Conexión "Custom query" (
+   pega `SELECT * FROM \`aire-monterrey-bq.sima.sima_horarios\` WHERE validado = 1`).
+   ⚠️ Conexión con acceso "owner credentials" (así nadie necesita tu permiso de BQ).
+2. Monta las 4 páginas según la spec arriba (scorecards → tendencias → ranking → contingencias).
+3. **Verifica facturación inactive:** el explorador-conector consume queries del billing
+   del proyecto; el sandbox gratuito de BQ cubre 1 TB/mes de consulta — holgado.
+4. Publica: botón **Share → Invite with link** (opción "View"), cambia "Restricted" a
+   "Anyone with the link", copia URL y pégala en `README.md` reemplazando el placeholder
+   "link pendiente". Conserva la data solo en modo lectura (no "Editor").
 
 ## Capturas (pendiente)
 - [ ] captura página 1 (resumen)
