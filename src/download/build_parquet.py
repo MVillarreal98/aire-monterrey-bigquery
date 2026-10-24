@@ -27,11 +27,13 @@ def parse_raw_filename(path: Path) -> tuple[int, str]:
     return int(est_id), param.replace("_", ".")
 
 
-def load_raw() -> pd.DataFrame:
-    stations = pd.read_csv(STATIONS_CSV)
+def load_raw(raw_dir: Path | None = None, stations_csv: Path | None = None) -> pd.DataFrame:
+    raw_dir = raw_dir or RAW_DIR
+    stations_csv = stations_csv or STATIONS_CSV
+    stations = pd.read_csv(stations_csv)
     id2code = dict(zip(stations["id"], stations["codigo"]))
     frames = []
-    for f in sorted(RAW_DIR.glob("sinaica_*_*.jsonl.gz")):
+    for f in sorted(raw_dir.glob("sinaica_*_*.jsonl.gz")):
         est_id, param = parse_raw_filename(f)
         rows = [json.loads(line) for line in gzip.open(f, "rt", encoding="utf-8")]
         if not rows:

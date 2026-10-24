@@ -76,7 +76,7 @@ def fig_contingencias() -> None:
     ax.bar(df["anio"] + w / 2, df["o3_dias_norma"], width=w, color=AZUL, alpha=0.85, label="O3 · días sobre norma (>0.090 ppm 1h)")
     ax.bar(df["anio"] + w / 2, df["o3_dias_contingencia"], width=w, color="navy", alpha=0.95, label="O3 · nivel contingencia probable (>0.130)")
     ax.set_ylabel("días")
-    ax.set_title("Contingencias ambientales (días técnicos por norma) · 2015-2024\n2024: récord de 20 días con levels de contingencia O3", fontsize=11)
+    ax.set_title("Contingencias ambientales (días técnicos por norma) · 2015-2024\n2024: récord de 20 días con niveles de contingencia de O3", fontsize=11)
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(IMG / "fig_contingencias.png", dpi=130)

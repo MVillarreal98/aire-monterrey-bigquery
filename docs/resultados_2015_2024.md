@@ -43,8 +43,12 @@ CSV crudos en `outputs/` (regenerables con `src/analysis/run_queries.py`).
 - En PM2.5 domina el suroriente (Juárez/Cadereyta) — industria, tráfico pesado y
   contribución regional; en O3 dominan las estaciones del norte y del poniente alto.
 - **El cambio por décadas (outputs/03c.csv) es más interesante:** Juárez
-  **empeoró +36.8 %** en PM2.5 entre 2015-2019 y 2020-2024; Obispado (Centro) empeoró
-  +9.2 %. Ninguna estación mejoró en media.
+  **empeoró +36.8 %** en PM2.5 entre 2015-2019 y 2020-2024 (y la ITESM
+  Eugenio Garza +17.3 %, Obispado +9.2 %; Santa Catarina plana +0.5 %).
+  Las otras **9 de 13 estaciones con datos completos mejoraron**, y los ya
+  contaminados bajaron más: Apodaca (NE2) −18.1 %, San Bernabé (NO) −17.6 %,
+  UANL (N2) −17.3 %, García (NO2) −27.2 %. La historia es de convergencia
+  con una excepción: el sureste (Juárez) se despega y aún sube.
 
 ## 3. Contingencias y el peor día del decenio
 

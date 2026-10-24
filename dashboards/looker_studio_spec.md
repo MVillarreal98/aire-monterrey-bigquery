@@ -38,8 +38,8 @@ el modelo ELT completo queda reproducible: API → parquet → BigQuery → dash
    pega `SELECT * FROM \`aire-monterrey-bq.sima.sima_horarios\` WHERE validado = 1`).
    ⚠️ Conexión con acceso "owner credentials" (así nadie necesita tu permiso de BQ).
 2. Monta las 4 páginas según la spec arriba (scorecards → tendencias → ranking → contingencias).
-3. **Verifica facturación inactive:** el explorador-conector consume queries del billing
-   del proyecto; el sandbox gratuito de BQ cubre 1 TB/mes de consulta — holgado.
+3. **Revisa la cuota:** el conector corre queries con el billing del proyecto;
+   el sandbox gratuito de BQ incluye 1 TB/mes de consulta — holgado para este dataset.
 4. Publica: botón **Share → Invite with link** (opción "View"), cambia "Restricted" a
    "Anyone with the link", copia URL y pégala en `README.md` reemplazando el placeholder
    "link pendiente". Conserva la data solo en modo lectura (no "Editor").

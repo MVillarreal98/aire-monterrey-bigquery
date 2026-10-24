@@ -49,7 +49,13 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
         peso = est["media"] / 41.0  # norma diaria
     else:
         peso = (est["media"] * 1000.0) / 90.0  # ppm → ppb relativo a norma horaria
-    est["peso"] = (peso / peso.max()).clip(0.15, 1.0)
+    max_peso = peso.max()
+    # sin esto O3 queda ~0.3 en todas y el gradiente no se distingue;
+    # max_peso==0 (año sin datos del param) => heatmap vacío y silent NaN
+    if max_peso > 0:
+        est["peso"] = (peso / max_peso).clip(0.15, 1.0)
+    else:
+        est["peso"] = 0.5
 
     m = folium.Map(location=MTY_CENTER, zoom_start=10.5, tiles="OpenStreetMap")
     fmt = "{:.3f}" if param == "O3" else "{:.1f}"   # O3 en ppm necesita 3 decimales

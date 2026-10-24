@@ -33,7 +33,7 @@ TABLE_RE = re.compile(r"aire-mty\.sima\.sima_horarios")
 
 
 def strip_comments(sql: str) -> str:
-    # textos multilínea con coma o fechass; sin strings, solo safe here
+    # quita líneas de comentario '--'; los SQL del repo no usan '--' dentro de strings
     return re.sub(r"(?m)^--.*\n?", "", sql)
 
 

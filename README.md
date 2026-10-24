@@ -52,8 +52,10 @@ BigQuery: autenticar con `gcloud auth application-default login`
 
 ![Tendencia anual 2015-2024](docs/img/fig_tendencia_anual.png)
 
-**Heatmap PM2.5 sobre mapa real**: 2015 (7 estaciones) vs 2024 (red completa). El
-hotspot migró del poniente-centro (La Pastora) al sureste (Benito Juárez):
+**Heatmap PM2.5 sobre mapa real**: 2015 (7 estaciones) vs 2024 (red completa).
+En 2015 el hotspot estaba en el suroeste (Santa Catarina, 34.8 µg/m³); en 2024
+el máx es San Bernabé 30.1 y Juárez 29.2, que sube al trono del decenio
+(+36.8 % entre décadas, `docs/resultados_2015_2024.md`):
 
 | 2015 | 2024 |
 |---|---|

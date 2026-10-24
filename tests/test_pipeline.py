@@ -10,6 +10,8 @@ Uso: .venv/Scripts/python -m pytest tests -v
 
 from __future__ import annotations
 
+import gzip
+import json
 import sys
 from datetime import date
 from pathlib import Path
@@ -17,7 +19,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO / "src" / "download"))
 
-from build_parquet import parse_raw_filename  # noqa: E402
+from build_parquet import load_raw, parse_raw_filename  # noqa: E402
 from sinaica_download import months_between, raw_path  # noqa: E402
 
 
@@ -43,3 +45,23 @@ def test_months_between_frontera_de_anio():
 
 def test_decenio_completo_120_meses():
     assert len(list(months_between(date(2015, 1, 1), date(2024, 12, 1)))) == 120
+
+
+def test_load_raw_dedup_idempotente(tmp_path):
+    # protegemos el fix del hallazgo-2: el downloader appende duplicados al
+    # re-ejecutarse y load_raw debe colapsarlos por (estacion_id, param, fecha, hora)
+    raw = tmp_path / "raw"
+    raw.mkdir()
+    fila = {"fecha": "2019-01-01", "hora": 1, "valor": 21.0, "val": 1}
+    duplicate = {**fila, "valor": 99.0}   # misma clave, valor distinto
+    with gzip.open(raw / "sinaica_148_O3.jsonl.gz", "wt", encoding="utf-8") as f:
+        for r in (fila, duplicate):
+            f.write(json.dumps(r) + "\n")
+
+    stations = tmp_path / "stations.csv"
+    stations.write_text("id,codigo\n148,SO2\n", encoding="utf-8")
+
+    df = load_raw(raw_dir=raw, stations_csv=stations)
+    assert len(df) == 1
+    assert df.iloc[0]["valor"] == 21.0   # conserva la primera, no suma
+
