@@ -66,7 +66,7 @@ y `docs/img/` (O3 2024, media decenal, ranking por estación, contingencias, peo
 
 **Dashboard:** 📊 [**Ver el dashboard interactivo en Looker Studio**](https://datastudio.google.com/reporting/fe47cccc-d1c9-4392-97d0-605069f4096c) —
 4 páginas: Resumen (2015 vs 2024 con flechas) · Tendencias mensuales con eje dual ·
-Ranking por estación · Top 10 días de contingencia.
+Ranking por estación · Top 10 días más contaminados (PM2.5).
 
 ## Estado
 
@@ -76,4 +76,4 @@ Ranking por estación · Top 10 días de contingencia.
 - [x] Análisis PM2.5/O3 2015 vs 2024 (`docs/resultados_2015_2024.md`)
 - [x] Ranking de estaciones (Juárez SE2, la peor en PM2.5; +36.8% entre décadas)
 - [x] Contingencias + heatmap folium (`outputs/*.html`)
-- [ ] Dashboard Looker Studio publicado — **✅ listo:** https://datastudio.google.com/reporting/fe47cccc-d1c9-4392-97d0-605069f4096c
+- [x] Dashboard Looker Studio publicado — [link](https://datastudio.google.com/reporting/fe47cccc-d1c9-4392-97d0-605069f4096c)
