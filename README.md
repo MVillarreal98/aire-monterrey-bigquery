@@ -49,9 +49,9 @@ BigQuery: autenticar con `gcloud auth application-default login`
 ## Estado
 
 - [x] Estructura del repo
-- [ ] Descarga de datos SIMA 2015–2024
-- [ ] Tabla particionada en BigQuery
-- [ ] Análisis PM2.5/O3 2015 vs 2024
-- [ ] Ranking de estaciones
-- [ ] Contingencias + heatmap folium
-- [ ] Dashboard Looker Studio publicado
+- [x] Descarga de datos SIMA 2015–2024 (3,360 peticiones → 1.5 M filas validadas)
+- [x] Tabla particionada en BigQuery (`aire-monterrey-bq:sima`, 1,516,017 rows)
+- [x] Análisis PM2.5/O3 2015 vs 2024 (`docs/resultados_2015_2024.md`)
+- [x] Ranking de estaciones (Juárez SE2, la peor en PM2.5; +36.8% entre décadas)
+- [x] Contingencias + heatmap folium (`outputs/*.html`)
+- [ ] Dashboard Looker Studio publicado (spec lista en `dashboards/`)

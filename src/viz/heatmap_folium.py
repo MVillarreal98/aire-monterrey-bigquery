@@ -85,6 +85,7 @@ def main() -> None:
     args = parser.parse_args()
 
     data = pd.read_parquet(PARQUET)
+    data["fecha"] = pd.to_datetime(data["fecha"])   # parquet guarda DATE; para filtrar año volvemos datetime
     stations = pd.read_csv(STATIONS_CSV)
     suffix = str(args.year) if args.year else "decenio"
 

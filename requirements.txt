@@ -1,7 +1,9 @@
 pandas>=2.0
 requests>=2.31
 google-cloud-bigquery>=3.19
+db-dtypes        # to_dataframe() de google-cloud-bigquery lo requiere
 folium>=0.17   # plugins vienen dentro (folium.plugins.HeatMap)
 matplotlib>=3.8
 pyarrow>=15.0   # para to_parquet / BigQuery load
 openpyxl        # si SIMA entrega .xlsx
+pytest>=8.0     # tests de ingesta (tests/test_pipeline.py)
