@@ -1,0 +1,16 @@
+id,codigo,nombre,municipio,lat,lon,elevacion_m,fecha_ini_datos,fecha_validada_hasta,activo,direccion
+139,SO,Santa Catarina,Santa Catarina,25.675722222222,-100.45836111111,694,1997-01-01,2025-12-31,1,"Calle José Ma. Morelos y Pavón, cruz con Vicente Guerrero y Colegio de Niñas, Col. Centro, Santa Catarina N.L."
+140,NO,San Bernabé,Monterrey,25.762966666667,-100.36950277778,571,1997-01-01,2025-12-31,1,"Av. Solidaridad al Poniente y calle Bemitr Col. San Bernabé, Monterrey, Nuevo León."
+141,CE,Obispado,Monterrey,25.675975,-100.33838055556,560,1997-01-01,2025-12-31,1,"Matamoros 1717 Poniente, Col. Obispado, Monterrey, Nuevo León."
+142,NE,San Nicolás,San Nicolás de los Garza,25.744991666667,-100.25309444444,476,1997-01-01,2025-12-31,1,"Antonio Soto y Gamma esq. Artículo 123, Col. Unidad Laboral, San Nicolás de los Garza, Nuevo León"
+143,SE,ITNL,Guadalupe,25.665455555556,-100.24345833333,492,1997-01-01,2025-12-31,1,"Av. Eloy Cavazos y Pablo Livas, Col. Pastora, Guadalupe, Nuevo León."
+144,N,Escobedo,General Escobedo,25.799088888889,-100.327075,528,2009-12-22,2025-12-31,1,"Av. Unión y calle Barcelona, Col. Fraccionamiento Santa Luz, General Escobedo, Nuevo León"
+145,NO2,García,García,25.800411111111,-100.58487777778,716,2009-08-01,2025-12-31,1,"Sierra Real y Sierra García, Col. Fraccionamiento Sierra Real, García Nuevo León"
+146,NE2,Apodaca,Apodaca,25.777222222222,-100.18833333333,432,2011-12-31,2025-12-31,1,"Calle Abasolo No. 103, Col. Centro Entre Escobedo y Porfirio Díaz, Apodaca N. L."
+147,SE2,Juárez,Juárez,25.646111111111,-100.09555555556,387,2011-12-31,2025-12-31,1,"Lázaro Garza Ayala # 215, cruz con Guerrero Centro de Juárez, N. L."
+148,SO2,San Pedro,San Pedro Garza García,25.665277777778,-100.41277777778,636,2013-12-31,2025-12-31,1,"Gral. Garza Ayala y Diego Saldívar, Frac. Los Sauces San Pedro Garza García, N.L."
+424,SE3,Cadereyta,Cadereyta Jiménez,25.600883333333,-99.995311111111,336,2016-12-31,2025-12-31,1,
+425,N2,UANL,San Nicolás de los Garza,25.73,-100.30972222222,517,2016-12-31,2025-12-31,1,
+426,SUR,Preparatoria ITESM Eugenio Garza Lagüera,Monterrey,25.617905555556,-100.27512222222,617,2016-12-31,2025-12-31,1,
+446,NE3,Pesquería,Pesquería,25.79055555555556,-100.07852777778,0,2020-01-01,2025-12-31,1,
+479,NO3,Misión San Juan,García,25.784941666667,-100.46339166667,608,2022-01-01,2025-12-31,1,

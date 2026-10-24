@@ -1,0 +1,32 @@
+# Datos crudos (millones de filas, no van a git)
+data/raw/*
+!data/raw/.gitkeep
+
+# Datos procesados
+data/processed/*
+!data/processed/.gitkeep
+
+# Outputs de análisis (gráficos, html de mapas) — se deciden después
+outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Credenciales — NUNCA a git
+*.json.key
+service-account*.json
+.env
+GOOGLE_APPLICATION_CREDENTIALS*
+*.key
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Notebooks checkpoints
+.ipynb_checkpoints/
