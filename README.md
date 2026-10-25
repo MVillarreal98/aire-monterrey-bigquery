@@ -126,6 +126,21 @@ con 4 páginas: resumen 2015 vs 2024, tendencias mensuales, ranking por estació
 de PM2.5. Se conecta en vivo a la tabla de BigQuery: si la tabla expira o se borra, el
 dashboard se queda sin datos (ver [`docs/gcp_setup.md`](docs/gcp_setup.md)).
 
+Capturas del 24-oct-2026, para que la evidencia no dependa de que la tabla siga existiendo:
+
+| Resumen | Tendencias |
+|---|---|
+| ![Resumen](docs/img/dashboard_resumen.png) | ![Tendencias](docs/img/dashboard_tendencias.png) |
+| ![Ranking](docs/img/dashboard_ranking.png) | ![Contingencias](docs/img/dashboard_contingencias.png) |
+
+Diferencia conocida (capturas vs repo): los scorecards del reporte promedian por fila
+horaria y muestran −23 % (26.79 → 20.58), mientras el repo usa media diaria → anual
+(−20 %, query 2C) y panel fijo (−14.1 %, query 2D); los scorecards de O3 muestran solo
+2 decimales (0.02 → 0.03), la tabla del top 10 deja dos pares de filas fuera de orden y
+los cuadros de texto afirman causas ("pirotecnia", "récord") que en el repo son hipótesis.
+Alinear el reporte queda como pendiente en
+[`dashboards/looker_studio_spec.md`](dashboards/looker_studio_spec.md).
+
 ## Fuente de datos y atribución
 
 - **Datos:** Sistema Nacional de Información de la Calidad del Aire (SINAICA), del
