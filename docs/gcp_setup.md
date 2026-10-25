@@ -61,6 +61,15 @@ bq show --format=prettyjson aire-monterrey-bq:sima                 # defaultTabl
 bq show --format=prettyjson aire-monterrey-bq:sima.sima_horarios   # expirationTime, timePartitioning.expirationMs
 ```
 
+**Verificado el 25/10/2026 con esos comandos:** el dataset `sima` sigue con los
+defaults del sandbox armados (`defaultTableExpirationMs` y `defaultPartitionExpirationMs`
+= 5,184,000,000 ms = 60 días). La tabla `sima_horarios` NO tiene `expirationTime` ni
+`timePartitioning.expirationMs` (el `ALTER TABLE` posterior a la carga anuló la
+expiración heredada) y conserva las 1,516,017 filas; se consultaron particiones de
+2015-01-01, 2019-06-15 y 2024-12-31 y las tres devolvieron filas. El dashboard tiene
+datos hoy y sin fecha de expiración; el riesgo restante es que una recarga futura con
+`bq load --replace` volvería a heredar los defaults de 60 días del dataset.
+
 Opciones, a decidir:
 
 1. Activar la facturación (con una alerta de presupuesto) y quitar las expiraciones:
@@ -75,8 +84,8 @@ evidencia no dependa de la tabla.
 ## Costo
 
 - **Sandbox gratuito**: 1 TB de consultas al mes y 10 GB de almacenamiento.
-- La tabla (1.5 M filas) cabe con holgura. Los bytes que procesa cada query no se han
-  medido; se pueden medir con `bq query --dry_run`.
+- Medido con `bq query --dry_run` (25/10/2026): la serie anual completa (2A) procesa
+  44.6 MB; con filtro de un solo año, 6.3 MB. La tabla (1.5 M filas) cabe con holgura.
 - Con "owner credentials", cada visita al dashboard ejecuta consultas a cargo del
   proyecto. Con este volumen el costo esperado es mínimo, pero conviene una alerta de
   presupuesto si se activa la facturación.

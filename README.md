@@ -179,8 +179,10 @@ las causas como hipótesis. Detalle en
   autor como referencia; no son las declaraciones oficiales del programa de contingencias.
 - **Outliers:** hay lecturas de 991 µg/m³ y de −1, y no se aplicó enmascaramiento por evento.
 - **Diseño de la tabla:** con unas 415 filas por día, la partición diaria no ahorra costo con
-  este volumen, y las queries de `sql/02-05` no filtran por fecha. Se dejó para practicar el
-  patrón.
+  este volumen, y las queries de `sql/02-05` no filtran por fecha, así que no hay poda real:
+  medido con `bq query --dry_run` (25/10/2026), la serie anual completa (2A) procesa 44.6 MB
+  y con filtro de un solo año, 6.3 MB — la poda existe, pero solo si la query filtra por
+  fecha. Se dejó la partición diaria para practicar el patrón.
 - **Atribuciones causales** (pirotecnia, industria, inversión térmica): son hipótesis
   consistentes con los datos, no resultados medidos.
 
