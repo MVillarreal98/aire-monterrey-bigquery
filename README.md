@@ -15,12 +15,12 @@ herramientas de IA (ver [Cómo se construyó](#cómo-se-construyó)).
 1. **PM2.5 y ozono:** ¿mejoró la calidad del aire de Monterrey entre 2015 y 2024?
 Entre 2015 y 2024, Monterrey mostró avances en la reducción de partículas finas, pero no una mejora generalizada de la calidad del aire. Aunque el promedio de PM2.5 disminuyó un 20%, el ozono aumentó un 29.2%.
 Al comparar seis estaciones que estuvieron presentes durante el periodo, la reducción de PM2.5 fue menor, del 14.1%. Esto sugiere que parte de la mejora observada puede estar relacionada con los cambios en las estaciones que reportaron información.
-
 En conclusión, hay señales de progreso en un contaminante, pero el ozono sigue siendo un problema que merece atención.
-2. **¿Qué estación respira peor?** San Pedro vs Apodaca vs Centro, y el ranking completo.
-El nivel de contaminación no es igual en toda el área metropolitana. Para identificar qué estación presenta las peores condiciones, comparamos las concentraciones registradas en San Pedro, Apodaca, Centro y el resto de las estaciones.
 
+3. **¿Qué estación respira peor?** San Pedro vs Apodaca vs Centro, y el ranking completo.
+El nivel de contaminación no es igual en toda el área metropolitana. Para identificar qué estación presenta las peores condiciones, comparamos las concentraciones registradas en San Pedro, Apodaca, Centro y el resto de las estaciones.
 El ranking permite detectar dónde se registran mayores concentraciones de contaminantes, pero una estación con valores elevados no significa necesariamente que todo el municipio tenga la misma calidad del aire.
+
 3. **Días de contingencia:** serie anual de días sobre norma y mapa de las estaciones.
 Analizamos la evolución anual de los días en los que las mediciones superaron los límites establecidos para los contaminantes estudiados. La serie permite observar si los episodios de contaminación se han vuelto más o menos frecuentes y qué estaciones registran más superaciones.
 
