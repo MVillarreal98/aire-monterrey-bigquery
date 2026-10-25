@@ -1,9 +1,9 @@
 -- ============================================================
 -- 05 · Patrón horario y estacional de la contaminación
---  (la "radiografía" que saca a Monterrey de la simple pantalla)
+--  Media por contaminante, hora del día y mes (todas las estaciones)
 -- ============================================================
--- Útil para el dashboard: respuesta a "¿cuándo respira la ciudad, por hora
--- y por mes?" — transportes, temperatura, inversión térmica invernal.
+-- Alimenta el heatmap hora × mes: ¿a qué hora y en qué meses se concentra
+-- cada contaminante?
 
 SELECT
   param,
@@ -11,14 +11,14 @@ SELECT
   EXTRACT(MONTH FROM fecha)            AS mes,                -- 1-12
   ROUND(AVG(valor), 3)                 AS media_valor,
   COUNT(*)                             AS horas_validas
-FROM `aire-mty.sima.sima_horarios`
+FROM `aire-monterrey-bq.sima.sima_horarios`
 WHERE validado = 1
   AND param IN ('PM2.5', 'O3')
 GROUP BY param, hora, mes
 ORDER BY param, mes, hora;
 
--- Lectura esperada:
---  · O3: pico vespertino (13-17 h) todo el año, más severo mar-jul; NO2 noct...
---    O3 sube con sol y tráficos — el patrón debe dormir por la noche.
---  · PM2.5: máximos por la MADRUGADA (00-07) y primavera/invierno —
---    inversión térmica nocturna + fugas sinterizas + polvo de rancho.
+-- Hipótesis a contrastar con el resultado (no verificadas en este repo):
+--  · O3: pico entre 13 y 17 h, más alto en primavera, bajo de noche
+--    (el ozono se forma con radiación solar).
+--  · PM2.5: máximos nocturnos y de madrugada en invierno, consistentes
+--    con inversión térmica.

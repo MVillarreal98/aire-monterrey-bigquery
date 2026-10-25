@@ -1,16 +1,22 @@
 """
-Runner de queries: ejecuta el SQL del repo contra la fila pequeña de BigQuery
-y guarda los resultados como CSV en outputs/.
+Runner de queries: ejecuta los SQL de sql/ contra la tabla de BigQuery
+y guarda cada resultado como CSV en outputs/.
 
 Uso:
     .venv/Scripts/python src/analysis/run_queries.py [archivos...]
 
-Sin argumentos corre los cuatro del negocio (02-05).
+Sin argumentos corre los cuatro archivos de negocio (02-05). Un archivo con
+varias queries produce un CSV por query con sufijo a, b, c...
+(p. ej. 02_tendencia_anuala.csv).
+Proyecto de GCP: variable de entorno AIRE_GCP_PROJECT (por defecto
+aire-monterrey-bq). Los SQL nombran la tabla como
+`aire-monterrey-bq.sima.sima_horarios` y aquí se sustituye el proyecto.
 Requiere: gcloud auth application-default login (ver docs/gcp_setup.md).
 """
 
 from __future__ import annotations
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -28,12 +34,15 @@ DEFAULT_FILES = [
     "05_patron_horario.sql",
 ]
 
-PROJECT = "aire-monterrey-bq"
-TABLE_RE = re.compile(r"aire-mty\.sima\.sima_horarios")
+PROJECT = os.environ.get("AIRE_GCP_PROJECT", "aire-monterrey-bq")
+# acepta también 'aire-mty', el nombre que usaban versiones anteriores de los SQL
+TABLE_RE = re.compile(r"(?:aire-monterrey-bq|aire-mty)\.sima\.sima_horarios")
 
 
 def strip_comments(sql: str) -> str:
-    # quita líneas de comentario '--'; los SQL del repo no usan '--' dentro de strings
+    # quita las líneas que empiezan con '--' en la columna 0. Los comentarios al
+    # final de una línea se quedan (BigQuery los acepta), así que no deben
+    # contener ';', porque split_statements corta por ';'.
     return re.sub(r"(?m)^--.*\n?", "", sql)
 
 

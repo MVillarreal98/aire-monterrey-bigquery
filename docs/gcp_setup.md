@@ -29,25 +29,54 @@ Si `bq` falla con *"Error retrieving auth credentials"* es porque no encuentra
 `gcloud.cmd` en el PATH. Solución rápida por sesión:
 
 ```powershell
-$env:Path += ";C:\Users\miket\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin"
+$env:Path += ";$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin"
 ```
 
 ## Gotcha documentado (vector de pérdida de datos)
 
-Un `bq load --time_partitioning_field=fecha` puede **heredar una expiración de
-partición de 60 días** aunque nadie la haya pedido: el job reporta SUCCESS y 1.5M
+Un `bq load --time_partitioning_field=fecha --replace` puede **heredar una expiración
+de partición de 60 días** aunque nadie la haya pedido: el job reporta SUCCESS y 1.5M
 `outputRows`, pero las particiones 2015-2024 cuentan como ya vencidas (QUERY devuelve
 0 filas) y el reaper físico puede borrarlas. Si la expiración se anula con
 `ALTER TABLE ... SET OPTIONS (partition_expiration_days = NULL)` **antes** de que
-el reaper actúe, los datos reviven. Después, no. Verificación de confianza:
+el reaper actúe, los datos reviven. Después, no. Verificación:
 
 ```bash
 bq show aire-monterrey-bq:sima.sima_horarios   # ¿expirationMs? ¿Total Rows?
-bq query "SELECT COUNT(*) FROM \`...sima.sima_horarios\`"   # confirma filas reales
+bq query --use_legacy_sql=false "SELECT COUNT(*) FROM \`aire-monterrey-bq.sima.sima_horarios\`"
 ```
+
+Causa probable: un dataset en el **sandbox de BigQuery** (proyecto sin facturación)
+aplica por defecto una expiración de 60 días a tablas y particiones, y `--replace`
+recrea la tabla con esos valores por defecto.
+
+### Pendiente: confirmar que el dashboard no se quede sin datos
+
+El dashboard de Looker Studio lee esta tabla en vivo. Si el proyecto sigue en el
+sandbox, la tabla o el dataset pueden expirar aunque las particiones ya no lo hagan.
+Revisar:
+
+```bash
+bq show --format=prettyjson aire-monterrey-bq:sima                 # defaultTableExpirationMs, defaultPartitionExpirationMs
+bq show --format=prettyjson aire-monterrey-bq:sima.sima_horarios   # expirationTime, timePartitioning.expirationMs
+```
+
+Opciones, a decidir:
+
+1. Activar la facturación (con una alerta de presupuesto) y quitar las expiraciones:
+   `bq update --default_table_expiration 0 --default_partition_expiration 0 aire-monterrey-bq:sima`
+   y `bq update --expiration 0 aire-monterrey-bq:sima.sima_horarios`.
+2. Seguir en el sandbox y conectar el dashboard a una fuente que no expire (por
+   ejemplo, una hoja de Google Sheets con los CSV agregados de `outputs/`).
+
+En cualquier caso, conviene guardar capturas del dashboard en `docs/img/` para que la
+evidencia no dependa de la tabla.
 
 ## Costo
 
-- **Sandbox gratuito**: 1 TB de consultas/mes + 10 GB de almacenamiento.
-- El parquet (~10 años × 15 estaciones) cabrá con sobra; las queries del repo
-  quedan en decenas de MB por partición escaneada — no hay costo HTTP.
+- **Sandbox gratuito**: 1 TB de consultas al mes y 10 GB de almacenamiento.
+- La tabla (1.5 M filas) cabe con holgura. Los bytes que procesa cada query no se han
+  medido; se pueden medir con `bq query --dry_run`.
+- Con "owner credentials", cada visita al dashboard ejecuta consultas a cargo del
+  proyecto. Con este volumen el costo esperado es mínimo, pero conviene una alerta de
+  presupuesto si se activa la facturación.

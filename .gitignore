@@ -1,4 +1,4 @@
-# Datos crudos (millones de filas, no van a git)
+# Datos crudos (JSONL de SINAICA, no se redistribuyen)
 data/raw/*
 data/download_log.txt
 !data/raw/.gitkeep
@@ -7,8 +7,12 @@ data/download_log.txt
 data/processed/*
 !data/processed/.gitkeep
 
-# Outputs de análisis (gráficos, html de mapas) — se deciden después
-outputs/
+# Outputs de análisis: los CSV agregados (outputs/0*.csv) y los mapas HTML
+# (outputs/heatmap_*.html) SÍ se versionan como evidencia de los resultados.
+# Cualquier otro archivo en outputs/ se ignora.
+outputs/*
+!outputs/0*.csv
+!outputs/heatmap_*.html
 
 # Python
 __pycache__/

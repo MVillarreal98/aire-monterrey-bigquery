@@ -4,22 +4,28 @@
 --  Ranking de estaciones, con metodología + comparativa de décadas
 -- ============================================================
 -- Metodología:
---   · PM2.5 se evalúa contra la NORMA DIARIA (promedio móvil 24h = 41 µg/m³, NOM-025):
---     primero promediamos cada día, luego contamos días que exceden — no las horas.
---   · O3 se evalúa en horas (norma 1h = 0.090 ppm) porque así está definida la norma.
---   · Cobertura: si una estación midió pocos años (Pesquería desde 2020), la media
---     de 10 años no es comparable → la query reporta los años con datos reales.
+--   · PM2.5 se evalúa contra la norma de 24 h (41 µg/m³, NOM-025-SSA1-2021,
+--     aplicada como umbral constante a 2015-2024). Se usa la media del día
+--     calendario por estación, no un promedio móvil de 24 h, y no se exige un
+--     mínimo de horas por día (la práctica normativa pide 18 de 24).
+--     Se cuentan días que exceden, no horas.
+--   · O3 se evalúa en horas (norma de 1 h = 0.090 ppm, NOM-020-SSA1-2021).
+--   · Cobertura: las estaciones no midieron los mismos días (Misión San Juan
+--     solo 2022-2024, Juárez sin PM2.5 en 2015). Las medias decenales mezclan
+--     periodos distintos, por eso cada query reporta los días u horas medidos.
+--   · O3 se redondea a 3 decimales: varias estaciones empatan y el orden
+--     dentro del empate no significa nada.
 
 -- ------------------------------------------------------------
 -- 3A · Ranking 2015-2024 por PM2.5: media, p95 y días sobre norma
 -- ------------------------------------------------------------
 WITH diaria_pm25 AS (
-  -- promedio móvil de 24h como la norma: media del día calendario por estación
+  -- media del día calendario por estación (no es un promedio móvil de 24 h)
   SELECT
     estacion,
     fecha,
     AVG(valor) AS media_24h
-  FROM `aire-mty.sima.sima_horarios`
+  FROM `aire-monterrey-bq.sima.sima_horarios`
   WHERE param = 'PM2.5'
     AND validado = 1
   GROUP BY estacion, fecha
@@ -46,7 +52,7 @@ SELECT
   MAX(valor)                                                        AS max_1h,             -- ppm
   COUNTIF(valor > 0.090)                                            AS horas_sobre_norma,
   ROUND(100.0 * COUNTIF(valor > 0.090) / COUNT(*), 2)               AS pct_horas_sobre_norma
-FROM `aire-mty.sima.sima_horarios`
+FROM `aire-monterrey-bq.sima.sima_horarios`
 WHERE param = 'O3'
   AND validado = 1
 GROUP BY estacion
@@ -61,7 +67,7 @@ WITH diaria_pm25 AS (
     estacion,
     fecha,
     AVG(valor) AS media_24h
-  FROM `aire-mty.sima.sima_horarios`
+  FROM `aire-monterrey-bq.sima.sima_horarios`
   WHERE param = 'PM2.5'
     AND validado = 1
   GROUP BY estacion, fecha

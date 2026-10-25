@@ -2,11 +2,19 @@
 Heatmap de calidad del aire sobre el mapa real de Monterrey (folium).
 
 Lee el parquet procesado + docs/stations.csv y genera:
-  outputs/heatmap_pm25.html  → promedio anual de PM2.5 por estación (radio ponderado)
-  outputs/heatmap_o3.html    → promedio anual de O3 por estación
+  outputs/heatmap_pm25_<año|decenio>.html → media horaria de PM2.5 por estación
+  outputs/heatmap_o3_<año|decenio>.html   → media horaria de O3 por estación
 
-Parámetros ajustables: --year (p. ej. 2015) compara un año puntual; sin --year
-usa el decenio completo 2015-2024.
+--year (p. ej. 2015) usa un solo año; sin --year usa 2015-2024 completo.
+
+Limitaciones de lectura:
+  · La intensidad se normaliza contra el máximo de CADA mapa, así que los
+    colores de dos mapas (p. ej. 2015 y 2024) no son comparables: compara los
+    números de las etiquetas.
+  · La capa HeatMap suma la intensidad de estaciones cercanas y no interpola
+    entre estaciones: los puntos son estaciones.
+  · La media es de todas las horas del periodo; el ranking de sql/03 usa
+    medias diarias, así que las cifras pueden diferir un poco.
 
 Uso:
     python src/viz/heatmap_folium.py [--year 2018]
@@ -35,16 +43,15 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
         subset = subset[subset["fecha"].dt.year == year]
         titulo = f"{param} · AMM · {year}"
     else:
-        titulo = f"{param} · media decenial 2015-2024"
+        titulo = f"{param} · media decenal 2015-2024"
 
     medias = subset.groupby("estacion_id")["valor"].mean().rename("media")
     est = stations.join(medias, on="id")
     est = est.dropna(subset=["media", "lat", "lon"])
 
-    # Escala del peso del heatmap: libertad relativa entre contaminantes
-    # PM2.5 en µg/m3 (nominal 10); O3 en ppm (norma 0.090) → normalizamos por norma
-    # y remapeamos por el max del mapa: la estación más cargada siempre = 1.0
-    # (sin esto O3 queda ~0.3 en todas y el gradiente no se distingue)
+    # Peso del heatmap: media / norma (PM2.5: 41 µg/m³ de 24 h; O3: 0.090 ppm),
+    # reescalado contra el máximo del mapa, de modo que la estación más alta
+    # siempre vale 1.0. Por eso los colores no se comparan entre mapas.
     if param == "PM2.5":
         peso = est["media"] / 41.0  # norma diaria
     else:
@@ -67,11 +74,13 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
     ).add_to(m)
 
     for _, row in est.iterrows():
+        # O3 en ppm necesita 3 decimales en el tooltip (con 2 todas las estaciones salían 0.02/0.03)
+        media_txt = f"{row['media']:.3f} ppm" if param == "O3" else f"{row['media']:.2f} µg/m³"
         folium.CircleMarker(
             location=[row["lat"], row["lon"]],
             tooltip=folium.Tooltip(
                 f"{row['nombre']} ({row['codigo']}) · {row['municipio']}\n"
-                f"media {param} = {row['media']:.2f}{' ppm' if param == 'O3' else ' µg/m³'}",
+                f"media {param} = {media_txt}",
                 permanent=False,
             ),
             radius=5,
@@ -90,7 +99,13 @@ def build_map(data: pd.DataFrame, stations: pd.DataFrame, param: str, year: int 
             ),
         ).add_to(m)
 
-    titulo_html = f"<h4 style='text-align:center;margin:4px'>{titulo}</h4>"
+    # Título flotante sobre el mapa: si va como bloque encima, el mapa (100 % de alto)
+    # se desborda y la atribución de OpenStreetMap queda fuera de la ventana y de la captura.
+    titulo_html = (
+        "<h4 style='position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:1000;"
+        "margin:0;padding:4px 10px;background:rgba(255,255,255,0.9);border-radius:4px;"
+        f"font-family:sans-serif'>{titulo}</h4>"
+    )
     m.get_root().html.add_child(folium.Element(titulo_html))
 
     out_path = REPO / out_name

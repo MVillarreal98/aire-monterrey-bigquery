@@ -1,4 +1,4 @@
-# Documentación de la API SINAICA/INECC (descubierta por ingeniería inversa del frontend)
+# API de SINAICA/INECC (documentada a partir de las peticiones del portal web)
 
 Fuente: <https://sinaica.inecc.gob.mx> — portal oficial del Sistema Nacional de Información de Calidad del Aire.
 Todos los endpoints aceptan `POST` con `application/x-www-form-urlencoded` y responden JSON.
@@ -46,6 +46,12 @@ Pesquería (2020) y Misión San Juan (2022) empezaron tarde; Cadereyta/UANL/ITES
 
 ## Notas de uso
 
-- Uso responsable: 1 hilo, *delay* entre peticiones, cachear el resultado.
-- El portal fuente es público y de acceso gratuito; los datos validados son oficiales.
+- Es el endpoint interno que usa el portal público, no una API oficial documentada:
+  puede cambiar sin aviso.
+- Uso responsable: 1 hilo y 1.1 s entre peticiones (`SLEEP_SECONDS` en
+  `src/download/sinaica_download.py`).
+- Que el portal sea público y gratuito no equivale a una licencia de uso. Este repo
+  publica solo agregados derivados, con atribución a SINAICA/INECC y a la red SIMA
+  (ver la sección "Fuente de datos y atribución" del README); los datos crudos no se
+  redistribuyen.
 - Alternativa: dataset público `bigquery-public-data.openaq` (solo datos crudos, serie incompleta para Monterrey).

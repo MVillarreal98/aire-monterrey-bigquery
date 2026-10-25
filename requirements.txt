@@ -1,9 +1,10 @@
-pandas>=2.0
-requests>=2.31
-google-cloud-bigquery>=3.19
-db-dtypes        # to_dataframe() de google-cloud-bigquery lo requiere
-folium>=0.17   # plugins vienen dentro (folium.plugins.HeatMap)
-matplotlib>=3.8
-pyarrow>=15.0   # para to_parquet / BigQuery load
-openpyxl        # si SIMA entrega .xlsx
-pytest>=8.0     # tests de ingesta (tests/test_pipeline.py)
+# Python 3.12 (probado con 3.12.10 en Windows 10).
+# Versiones fijadas a las del entorno con el que se generaron outputs/ y docs/img/.
+pandas==3.1.0
+requests==2.34.2
+google-cloud-bigquery==3.46.2
+db-dtypes==1.9.0       # to_dataframe() de google-cloud-bigquery lo requiere
+folium==0.20.0         # incluye folium.plugins.HeatMap
+matplotlib==3.11.2
+pyarrow==26.0.0        # to_parquet y carga a BigQuery
+pytest==9.1.1          # tests de ingesta (tests/test_pipeline.py)

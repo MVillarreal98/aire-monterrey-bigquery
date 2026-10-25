@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8b4c2d93f71850a09ac9f5ef2cd8716f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+    <h4 style='position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:1000;margin:0;padding:4px 10px;background:rgba(255,255,255,0.9);border-radius:4px;font-family:sans-serif'>PM2.5 · AMM · 2015</h4>
+    
+            <div class="folium-map" id="map_8b4c2d93f71850a09ac9f5ef2cd8716f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8b4c2d93f71850a09ac9f5ef2cd8716f = L.map(
+                "map_8b4c2d93f71850a09ac9f5ef2cd8716f",
+                {
+                    center: [25.6866, -100.3161],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10.5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_786b685425c556ed22db5d4d89e50ddb = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_786b685425c556ed22db5d4d89e50ddb.addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var heat_map_cee31c1507ddfedd0dea8bf906849f45 = L.heatLayer(
+                [[25.675722222222, -100.45836111111, 1.0], [25.762966666667, -100.36950277778, 0.7401702299770601], [25.675975, -100.33838055556, 0.6747856813789659], [25.744991666667, -100.25309444444, 0.800656132618388], [25.665455555556, -100.24345833333, 0.6018643635754831], [25.777222222222, -100.18833333333, 0.8518497606191814], [25.665277777778, -100.41277777778, 0.5972447466572559]],
+                {
+  "minOpacity": 0.2,
+  "maxZoom": 18,
+  "radius": 25,
+  "blur": 18,
+}
+            );
+        
+    
+            heat_map_cee31c1507ddfedd0dea8bf906849f45.addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var circle_marker_20aba26f329fd17fd64930a164a30d17 = L.circleMarker(
+                [25.675722222222, -100.45836111111],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_20aba26f329fd17fd64930a164a30d17.bindTooltip(
+                `<div>
+                     Santa Catarina (SO) · Santa Catarina
+media PM2.5 = 34.85 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_31236f3aa5cd8e27ebbe8d2718fda1c8 = L.marker(
+                [25.675722222222, -100.45836111111],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_0aeb52ff384f12a0b22d92690a6817fe = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e34.8\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_31236f3aa5cd8e27ebbe8d2718fda1c8.setIcon(div_icon_0aeb52ff384f12a0b22d92690a6817fe);
+            
+    
+            var circle_marker_af4d2855acbca129f6f6977f35da80df = L.circleMarker(
+                [25.762966666667, -100.36950277778],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_af4d2855acbca129f6f6977f35da80df.bindTooltip(
+                `<div>
+                     San Bernabé (NO) · Monterrey
+media PM2.5 = 25.79 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_64e44ea3e25759a52f8e8c9f53c3f23d = L.marker(
+                [25.762966666667, -100.36950277778],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_e669759efb119d06dd5a578e3baed3cc = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e25.8\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_64e44ea3e25759a52f8e8c9f53c3f23d.setIcon(div_icon_e669759efb119d06dd5a578e3baed3cc);
+            
+    
+            var circle_marker_72080154493de5b01131f1b5366df717 = L.circleMarker(
+                [25.675975, -100.33838055556],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_72080154493de5b01131f1b5366df717.bindTooltip(
+                `<div>
+                     Obispado (CE) · Monterrey
+media PM2.5 = 23.51 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ae0996a53b8bc731e0b5f584cc9a8095 = L.marker(
+                [25.675975, -100.33838055556],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_832bd5409a341ccda9d609a8d318c6f7 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e23.5\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_ae0996a53b8bc731e0b5f584cc9a8095.setIcon(div_icon_832bd5409a341ccda9d609a8d318c6f7);
+            
+    
+            var circle_marker_e26056bb9805448226df915e23e08494 = L.circleMarker(
+                [25.744991666667, -100.25309444444],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_e26056bb9805448226df915e23e08494.bindTooltip(
+                `<div>
+                     San Nicolás (NE) · San Nicolás de los Garza
+media PM2.5 = 27.90 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_feb75b6c45bd236975c6bd49297e5445 = L.marker(
+                [25.744991666667, -100.25309444444],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_bbd8de15198b51a279b62d240e6f7735 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e27.9\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_feb75b6c45bd236975c6bd49297e5445.setIcon(div_icon_bbd8de15198b51a279b62d240e6f7735);
+            
+    
+            var circle_marker_b16f243680b12de47485d6e90d68cabc = L.circleMarker(
+                [25.665455555556, -100.24345833333],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_b16f243680b12de47485d6e90d68cabc.bindTooltip(
+                `<div>
+                     ITNL (SE) · Guadalupe
+media PM2.5 = 20.97 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f3fb8ae0a3f4a91e2f8fd4541bc971fd = L.marker(
+                [25.665455555556, -100.24345833333],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_84bb679f049e81636a615d8c6e7bceb8 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e21.0\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_f3fb8ae0a3f4a91e2f8fd4541bc971fd.setIcon(div_icon_84bb679f049e81636a615d8c6e7bceb8);
+            
+    
+            var circle_marker_f9b51581af7b2d4d455f231b970ebb6a = L.circleMarker(
+                [25.777222222222, -100.18833333333],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_f9b51581af7b2d4d455f231b970ebb6a.bindTooltip(
+                `<div>
+                     Apodaca (NE2) · Apodaca
+media PM2.5 = 29.69 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_05e9aa1504326c8f56aaac455e2b1168 = L.marker(
+                [25.777222222222, -100.18833333333],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_aa116820693175ec02b9ce9041091140 = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e29.7\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_05e9aa1504326c8f56aaac455e2b1168.setIcon(div_icon_aa116820693175ec02b9ce9041091140);
+            
+    
+            var circle_marker_dde70a4841360226167c6d2d5d8340be = L.circleMarker(
+                [25.665277777778, -100.41277777778],
+                {"bubblingMouseEvents": true, "color": "black", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "black", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 3}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            circle_marker_dde70a4841360226167c6d2d5d8340be.bindTooltip(
+                `<div>
+                     San Pedro (SO2) · San Pedro Garza García
+media PM2.5 = 20.81 µg/m³
+                 </div>`,
+                {
+  "permanent": false,
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0426e0a82fd5158b9cbbf5b5a0f1560a = L.marker(
+                [25.665277777778, -100.41277777778],
+                {
+}
+            ).addTo(map_8b4c2d93f71850a09ac9f5ef2cd8716f);
+        
+    
+            var div_icon_52a05f2cab9c54b9511bf672f794c52c = L.divIcon({
+  "html": "\u003cdiv style=\u0027font-size:11px;font-weight:bold;color:#111;text-shadow:1px 1px 2px white,-1px -1px 2px white\u0027\u003e20.8\u003c/div\u003e",
+  "iconSize": [40, 16],
+  "iconAnchor": [20, 14],
+  "className": "empty",
+});
+        
+    
+                marker_0426e0a82fd5158b9cbbf5b5a0f1560a.setIcon(div_icon_52a05f2cab9c54b9511bf672f794c52c);
+            
+</script>
+</html>

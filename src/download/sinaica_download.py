@@ -3,8 +3,14 @@ Descarga de datos horarios VALIDADOS de la red Monterrey (SIMA/INECC) vía la AP
 
 API documentada en docs/sinaica_api.md.
 Descarga por estación × contaminante × mes → data/raw/ (JSONL gz).
-No es reanudable (el append acumula): si se re-ejecuta, build_parquet.py
-elimina los duplicados con drop_duplicates (transformación idempotente).
+No es reanudable (el append acumula): si se re-ejecuta, vuelve a pedir todos
+los meses y build_parquet.py elimina los duplicados con drop_duplicates
+(conserva la primera versión de cada hora).
+
+Limitaciones conocidas:
+  · Una respuesta JSON que no sea lista se toma como mes vacío, sin aviso.
+  · Los fallos definitivos solo se imprimen; no hay manifiesto de completitud.
+  · No respeta 429/Retry-After: solo reintenta con backoff exponencial.
 
 Uso:
     python src/download/sinaica_download.py
@@ -125,7 +131,7 @@ def main() -> None:
                 print(f"  [OK] est {est_id} ({nombre}) {param} {y}-{m:02d}: {len(rows)} filas")
                 time.sleep(SLEEP_SECONDS)
 
-    print(f"\nTerminal: {total_requests} peticiones. Archivos en {RAW_DIR}")
+    print(f"\nTotal: {total_requests} peticiones. Archivos en {RAW_DIR}")
 
 
 def yearStart_est(est_id: int) -> int:

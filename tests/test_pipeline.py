@@ -48,8 +48,8 @@ def test_decenio_completo_120_meses():
 
 
 def test_load_raw_dedup_idempotente(tmp_path):
-    # protegemos el fix del hallazgo-2: el downloader appende duplicados al
-    # re-ejecutarse y load_raw debe colapsarlos por (estacion_id, param, fecha, hora)
+    # el downloader hace append: al re-ejecutarse deja filas duplicadas y
+    # load_raw debe colapsarlas por (estacion_id, param, fecha, hora)
     raw = tmp_path / "raw"
     raw.mkdir()
     fila = {"fecha": "2019-01-01", "hora": 1, "valor": 21.0, "val": 1}
