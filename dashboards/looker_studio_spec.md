@@ -53,19 +53,27 @@ Se conserva como referencia. Diferencias con lo publicado:
 
 Enlazadas en el README, para que la evidencia no dependa de que la tabla siga existiendo.
 
-## Pendientes del reporte (requieren editarlo en Looker Studio, como dueño)
+## Arreglos aplicados al reporte (2026-10-25, editado por el dueño)
 
-Defectos que las capturas del 2026-10-24 dejaron a la vista:
+Defectos que las capturas del 2026-10-24 dejaron a la vista, ya corregidos:
 
-1. **Scorecards del resumen:** promedian por fila horaria (26.79 → 20.58 µg/m³, −23 %),
-   mientras el repo usa media diaria → anual (−20 %, query 2C) y panel fijo (−14.1 %,
-   query 2D). Un lector que compare los tres números ve una contradicción. Corregir
-   cambiando la métrica del scorecard o etiquetándola como "media por medición".
-2. **Scorecards de O3 con 2 decimales** (0.02 → 0.03): sin precisión útil. Cambiar el
-   formato a 3 decimales, o a ppb con 1 decimal como la query 2C.
-3. **Tabla del top 10:** 28-ene-2023 (61.52) aparece arriba de 17-ene-2019 (62.41), y
-   30-abr-2019 (47.16) arriba de 28-abr-2021 (50.05): el orden no corresponde a la columna
-   PM2.5 que se muestra. Revisar el sort del componente.
-4. **Cuadros de texto que afirman causas** ("pirotecnia + inversión térmica nocturna",
-   "récord de días en contingencia", "O3 +36 %"): en el repo esas afirmaciones ya se
-   marcan como hipótesis o se corrigieron (query 2C: +29.2 %). Reescribirlos o quitarlos.
+- [x] **Scorecards etiquetados** "Media por medición (µg/m³)" y "(ppm)": las métricas se
+  renombraron en la fuente de datos (`CASE WHEN param = "PM2.5" / "O3" THEN valor END`;
+  en la primera pasada el nombre quedó pegado dentro de la fórmula y la ordenación usaba
+  SUM, que ordenaba por la suma horaria del día y no por la media mostrada).
+- [x] **Scorecards de O3 con precisión útil:** 0.0219 → 0.0280 ppm (antes 0.02 → 0.03).
+- [x] **Tabla del top 10 ordenada por la métrica mostrada** (ordenación en AVG,
+  descendente). Con el orden correcto, los 10 días caen entre diciembre y enero y 4 son
+  1 de enero — coherente con `outputs/04_contingenciasb.csv`.
+- [x] **Cuadros de texto alineados con el repo:** respuesta directa en cada página
+  ("¿Respiró mejor…? Sí y no"), causas marcadas como hipótesis y las cifras del repo
+  (+29 % red completa, +37 % panel fijo; 5.2 % → 9.9 % de estación-días).
+
+## Trade-offs que quedan
+
+1. Los scorecards siguen promediando por fila horaria (−23 %): el repo reporta −20 %
+   (media diaria → anual, query 2C) y −14.1 % (panel fijo, query 2D). La diferencia
+   queda etiquetada en el propio reporte y en el README.
+2. Al renombrar las métricas en la fuente, los títulos y leyendas de los gráficos de
+   Tendencias y Ranking dicen "Media por medición (µg/m³)" en vez de "PM2.5 (µg/m³)".
+   Las unidades desambiguan y los captions nombran los contaminantes.

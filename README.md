@@ -134,11 +134,10 @@ Capturas del 24-oct-2026, para que la evidencia no dependa de que la tabla siga 
 | ![Ranking](docs/img/dashboard_ranking.png) | ![Contingencias](docs/img/dashboard_contingencias.png) |
 
 Diferencia conocida (capturas vs repo): los scorecards del reporte promedian por fila
-horaria y muestran −23 % (26.79 → 20.58), mientras el repo usa media diaria → anual
-(−20 %, query 2C) y panel fijo (−14.1 %, query 2D); los scorecards de O3 muestran solo
-2 decimales (0.02 → 0.03), la tabla del top 10 deja dos pares de filas fuera de orden y
-los cuadros de texto afirman causas ("pirotecnia", "récord") que en el repo son hipótesis.
-Alinear el reporte queda como pendiente en
+horaria (26.79 → 20.58 µg/m³, −23 %), mientras el repo usa media diaria → anual (−20 %,
+query 2C) y panel fijo (−14.1 %, query 2D); la metodología queda etiquetada en el propio
+reporte ("media por medición"), y los cuadros de texto citan las cifras del repo y marcan
+las causas como hipótesis. Detalle en
 [`dashboards/looker_studio_spec.md`](dashboards/looker_studio_spec.md).
 
 ## Fuente de datos y atribución
