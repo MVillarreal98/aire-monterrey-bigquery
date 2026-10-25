@@ -61,6 +61,9 @@ ORDER BY a.param, a.anio;
 -- ------------------------------------------------------------
 -- 2B · Honestidad de los datos: horas válidas por estación y año
 --      (decide si un "cambio" real es el medidor o la red que mide más)
+--      Filtra validado = 1 como el resto de las queries; hoy la tabla
+--      solo contiene filas validadas (verificado 2026-10-25), pero el
+--      filtro protege la cifra si la tabla se recarga con crudos.
 -- ------------------------------------------------------------
 SELECT
   EXTRACT(YEAR FROM fecha) AS anio,
@@ -69,9 +72,10 @@ SELECT
   COUNT(*) AS horas_validas,
   COUNT(DISTINCT fecha) AS dias_con_datos
 FROM `aire-monterrey-bq.sima.sima_horarios`
-WHERE param IN ('PM2.5', 'O3')
+WHERE validado = 1
+  AND param IN ('PM2.5', 'O3')
 GROUP BY anio, estacion, param
-ORDER BY param, anio, horas_validas DESC;
+ORDER BY param, anio, horas_validas DESC, estacion;
 
 -- ------------------------------------------------------------
 -- 2C · 2015 vs 2024 con la red completa, sin redondeo intermedio
