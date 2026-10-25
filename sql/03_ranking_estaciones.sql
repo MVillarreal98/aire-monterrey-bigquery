@@ -4,10 +4,11 @@
 --  Ranking de estaciones, con metodología + comparativa de décadas
 -- ============================================================
 -- Metodología:
---   · PM2.5 se evalúa contra la norma de 24 h (41 µg/m³, NOM-025-SSA1-2021,
---     aplicada como umbral constante a 2015-2024). Se usa la media del día
+--   · PM2.5 se evalúa contra la norma de 24 h (41 µg/m³ = año 1 de la
+--     NOM-025-SSA1-2021, aplicada como umbral constante a 2015-2024; el valor
+--     de año 3 es 33 µg/m³ — ver sql/02). Se usa la media del día
 --     calendario por estación, no un promedio móvil de 24 h, y no se exige un
---     mínimo de horas por día (la práctica normativa pide 18 de 24).
+--     mínimo de horas por día (la Tabla 2 de la NOM-020 pide 18 de 24).
 --     Se cuentan días que exceden, no horas.
 --   · O3 se evalúa en horas (norma de 1 h = 0.090 ppm, NOM-020-SSA1-2021).
 --   · Cobertura: las estaciones no midieron los mismos días (Misión San Juan

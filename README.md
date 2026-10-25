@@ -147,6 +147,14 @@ las causas como hipótesis. Detalle en
   descargaron en octubre de 2026 con el filtro de datos validados, desde el endpoint que usa
   el portal público <https://sinaica.inecc.gob.mx>, a una petición cada 1.1 s. No es una API
   oficial documentada (ver [`docs/sinaica_api.md`](docs/sinaica_api.md)).
+- **Términos y normas:** los valores normativos del repo son los de la NOM-025-SSA1-2021
+  (PM2.5; DOF 27/10/2021, <https://dof.gob.mx/nota_detalle.php?codigo=5633855>) y la
+  NOM-020-SSA1-2021 (O3; DOF 28/10/2021, <https://dof.gob.mx/nota_detalle.php?codigo=5633956>),
+  aplicados como umbral constante a todo el periodo; el calendario gradual oficial lo
+  mantiene SINAICA en <https://sinaica.inecc.gob.mx/pags/noms.php>. El portal es un sitio de
+  gob.mx: el uso de su información pública se rige por sus términos
+  (<https://www.gob.mx/terminos>) y los datos abiertos por la Política de Libre Uso MX, que
+  exige atribución — se cumple citando la fuente.
 - **Qué se publica:** solo agregados derivados (`outputs/*.csv`, figuras y mapas). Los datos
   crudos y el parquet no se redistribuyen.
 - **Mapas base:** © OpenStreetMap contributors (ODbL).
@@ -164,9 +172,11 @@ las causas como hipótesis. Detalle en
   diaria completa, cuando la práctica normativa pide al menos 75 % de las horas. El top 10 de
   días incluye el 1-ene-2017, con una sola estación midiendo.
 - **Normas:** se aplican los valores de la NOM-025-SSA1-2021 (PM2.5) y la NOM-020-SSA1-2021
-  (O3) como umbral constante a todo 2015-2024, aunque antes de 2021 regían otros valores. Los
-  umbrales de "contingencia probable" (97 µg/m³ y 0.130 ppm) los fijó el autor como
-  referencia; no son las declaraciones oficiales del programa de contingencias.
+  (O3) como umbral constante a todo 2015-2024, aunque antes de 2021 regían otros valores; el
+  límite de 24 h de PM2.5 que se usa (41 µg/m³) es el de "año 1" de la norma gradual — el de
+  "año 3" (vigente en 2024-2025) es 33 µg/m³. Enlaces al DOF en "Fuente de datos y
+  atribución". Los umbrales de "contingencia probable" (97 µg/m³ y 0.130 ppm) los fijó el
+  autor como referencia; no son las declaraciones oficiales del programa de contingencias.
 - **Outliers:** hay lecturas de 991 µg/m³ y de −1, y no se aplicó enmascaramiento por evento.
 - **Diseño de la tabla:** con unas 415 filas por día, la partición diaria no ahorra costo con
   este volumen, y las queries de `sql/02-05` no filtran por fecha. Se dejó para practicar el

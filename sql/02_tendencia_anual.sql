@@ -3,8 +3,19 @@
 --  ¿Mejoró la calidad del aire de Monterrey de 2015 a 2024?
 --  PM2.5 (µg/m³) y Ozono O3 (ppm): serie anual + % de cambio vs 2015
 -- ============================================================
--- Normas de referencia, aplicadas como umbral constante a 2015-2024:
---   PM2.5 anual = 10 µg/m³ (NOM-025-SSA1-2021) · O3 horario = 0.090 ppm (NOM-020-SSA1-2021)
+-- Normas de referencia, aplicadas como umbral constante a 2015-2024 (uso
+-- retroactivo: umbral de lectura del decenio, no de cumplimiento oficial):
+--   PM2.5 anual = 10 µg/m³ · O3 horario = 0.090 ppm
+--   NOM-025-SSA1-2021 (PM2.5), DOF 27/10/2021:
+--     https://dof.gob.mx/nota_detalle.php?codigo=5633855
+--     El límite de 24 h es gradual: 41 (año 1), 33 (año 3 = 2024-2025) y
+--     25 (año 5); el anual es 10 constante. Aquí se usa el de año 1 como
+--     umbral fijo para todo el decenio.
+--   NOM-020-SSA1-2021 (O3), DOF 28/10/2021:
+--     https://dof.gob.mx/nota_detalle.php?codigo=5633956
+--     0.090 ppm constante en años 1-5. Su Tabla 2 exige al menos 18 registros
+--     horarios por día para el máximo diario (criterio no aplicado aquí; ver 03).
+--   Tabla oficial de valores: https://sinaica.inecc.gob.mx/pags/noms.php
 --
 -- Diseño del indicador de red (2A):
 --   1) Nivel DIARIO = promedio de las horas válidas de todas las estaciones

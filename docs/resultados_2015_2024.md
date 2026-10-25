@@ -153,8 +153,10 @@ Peores días de PM2.5 (`outputs/04_contingenciasb.csv`, media de red de 24 h):
 3. **Sin criterio de suficiencia diaria:** un día con una sola hora válida cuenta como media
    diaria. La práctica normativa pide al menos 75 % de las horas (18 de 24).
 4. **Normas:** se usan como umbral constante los valores de la NOM-025-SSA1-2021 (PM2.5: 41
-   µg/m³ en 24 h y 10 µg/m³ anual) y de la NOM-020-SSA1-2021 (O3: 0.090 ppm en 1 h) para todo
-   2015-2024. Los umbrales de 97 µg/m³ y 0.130 ppm ("contingencia probable") los definió el
-   autor como referencia; no corresponden a las declaraciones oficiales.
+   µg/m³ en 24 h —el de "año 1" de la norma gradual, en 2024-2025 rige el de año 3: 33— y
+   10 µg/m³ anual) y de la NOM-020-SSA1-2021 (O3: 0.090 ppm en 1 h) para todo 2015-2024.
+   Enlaces al DOF en la sección "Fuente de datos y atribución" del README. Los umbrales de
+   97 µg/m³ y 0.130 ppm ("contingencia probable") los definió el autor como referencia; no
+   corresponden a las declaraciones oficiales.
 5. **O3 estacional:** los picos se concentran en primavera. `sql/05` calcula el patrón por hora
    y mes (`outputs/05_patron_horario.csv`).
