@@ -1,0 +1,3 @@
+param,unidad,estaciones_panel,lista_estaciones,media_2015,media_2024,pct_cambio
+O3,ppb,8,"CE,N,NE,NO,NO2,SE,SE2,SO2",21.8,29.8,36.8
+PM2.5,ug/m3,6,"CE,NE,NE2,SE,SO,SO2",25.7,22.1,-14.1

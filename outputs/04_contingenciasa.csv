@@ -1,4 +1,4 @@
-anio,dias_pm25_mididos,pm_dias_norma,pm_dias_contingencia,dias_o3_mididos,o3_dias_norma,o3_dias_contingencia
+anio,dias_pm25_medidos,pm_dias_norma,pm_dias_contingencia,dias_o3_medidos,o3_dias_norma,o3_dias_contingencia
 2015,365,15,0,365,73,4
 2016,366,14,1,366,75,6
 2017,365,14,0,365,95,14

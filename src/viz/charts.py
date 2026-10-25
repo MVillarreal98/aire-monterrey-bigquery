@@ -42,12 +42,12 @@ def fig_tendencia() -> None:
     ax2.set_ylim(0.015, 0.035)
     ax2.tick_params(axis="y", labelcolor=AZUL)
 
-    # El título no debe decir más que el README: el −20 % de PM2.5 es de la red completa
-    # (7 estaciones en 2015, 14 en 2024) y el +27 % de O3 sale de medias redondeadas.
+    # El título no debe decir más que el README: el −20 % de PM2.5 es la red completa
+    # (query 2C) y el −14 % es el panel fijo de 6 estaciones (query 2D).
     ax1.set_title(
         "Calidad del aire AMM · media anual de la red completa, 2015-2024 (sin corregir cambio de red)\n"
-        "PM2.5 −20 % red completa; ≈ −11 % mismas 7 estaciones (estimación) · "
-        "O3 +27 % (+22 % a +33 % por redondeo)",
+        "PM2.5 −20 % red completa (2C); −14 % panel fijo de 6 estaciones (2D) · "
+        "O3 +29 % red completa (2C); +37 % panel fijo (2D)",
         fontsize=9.5,
     )
     ax1.set_xticks(list(pm["anio"]))

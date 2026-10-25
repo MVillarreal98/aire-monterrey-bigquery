@@ -19,23 +19,24 @@ herramientas de IA (ver [Cómo se construyó](#cómo-se-construyó)).
 ## Respuestas cortas (con sus límites)
 
 1. **PM2.5 bajó y el ozono subió, pero la red cambió entre los dos años.** Con la red
-   completa, la media anual de PM2.5 pasa de 26.1 a 20.8 µg/m³ (−20 %). En 2015 solo 7
-   estaciones midieron PM2.5 y en 2024 fueron 14, varias con medias bajas, así que parte de
-   ese −20 % se debe a la composición de la red. Con las mismas 7 estaciones el cambio
-   estimado es de ≈ −11 % (≈ −16 % sin San Bernabé, que en 2024 solo midió 86 días); el
-   método está en [`docs/resultados_2015_2024.md`](docs/resultados_2015_2024.md). El O3 pasa
-   de 0.022 a 0.028 ppm (+27 %). Ese porcentaje se calculó sobre medias redondeadas a 3
-   decimales: con esa precisión, el cambio real está entre ≈ +22 % y ≈ +33 %.
+   completa, la media anual de PM2.5 pasa de 26.1 a 20.8 µg/m³ (−20 %, query 2C). En 2015
+   solo 7 estaciones midieron PM2.5 y en 2024 fueron 14, varias con medias bajas, así que
+   parte de ese −20 % se debe a la composición de la red. Con un panel fijo de 6 estaciones
+   con 183 días o más medidos en ambos años, el cambio es −14.1 % (25.7 → 22.1, query 2D).
+   El O3 pasa de 21.6 a 27.9 ppb (+29.2 %, query 2C, sin redondeo intermedio); con panel
+   fijo de 8 estaciones, +36.8 %. Detalles en
+   [`docs/resultados_2015_2024.md`](docs/resultados_2015_2024.md).
 2. **Apodaca (NE2) 24.5 µg/m³, 3.ª de 14; Centro/Obispado (CE) 23.4, 4.ª; San Pedro (SO2) 18.6,
    10.ª** (media de PM2.5 en 2015-2024). La más alta es Juárez (SE2) con 26.0, pero tiene
    solo 429 días medidos en 2015-2019, contra 1,689 en 2020-2024.
 3. **Días de O3 sobre norma: 73 (2015) → 121 (2024).** El conteo usa la peor estación de la
    red cada día, así que sube solo con añadir estaciones. La query 4C lo normaliza por
-   estación-día.
+   estación-día: 5.2 % de los estación-días en 2015 frente a 9.9 % en 2024.
 
 Las queries 2C (sin redondeo intermedio), 2D (panel fijo de estaciones) y 4C (O3
-normalizado) están en `sql/`, pero **todavía no se han ejecutado**. Cuando se ejecuten, sus
-cifras reemplazarán a las estimaciones de arriba.
+normalizado) están en `sql/` y ya se ejecutaron; sus resultados están en
+`outputs/02_tendencia_anualc.csv`, `outputs/02_tendencia_anuald.csv` y
+`outputs/04_contingenciasc.csv`.
 
 ## Stack
 

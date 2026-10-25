@@ -14,13 +14,15 @@ resultados medidos.
 
 **Depende del contaminante, y la respuesta depende también de qué estaciones se comparan.**
 
-Media anual de la red completa (`outputs/02_tendencia_anuala.csv`; nivel diario = promedio de
-las estaciones que midieron ese día, nivel anual = promedio de los días):
+Media anual de la red completa (query **2C**, `outputs/02_tendencia_anualc.csv`; mismo
+indicador que `02_tendencia_anuala.csv` — nivel diario = promedio de las estaciones que
+midieron ese día, nivel anual = promedio de los días —, con el % calculado sin redondeo
+intermedio y el O3 en ppb):
 
 | Contaminante | 2015 | 2024 | Cambio | Lectura |
 |---|---|---|---|---|
 | **PM2.5** (µg/m³) | 26.1 | 20.8 | **−20.0 %** | Bajó, pero sigue en 2× la norma anual (10 µg/m³) |
-| **O3** (ppm, media) | 0.022 | 0.028 | **+27.3 %** | Subió |
+| **O3** (ppb, media) | 21.6 | 27.9 | **+29.2 %** | Subió |
 
 Dos advertencias que cambian la lectura:
 
@@ -31,24 +33,25 @@ Dos advertencias que cambian la lectura:
   15.7. Desde 2017 la media de red queda en una meseta de 19.8 a 21.6 µg/m³ (mejor año: 2023,
   19.8).
 
-  Estimación con las mismas estaciones: promedio simple de las medias horarias por estación
-  que imprimen los mapas `outputs/heatmap_pm25_2015.html` y `outputs/heatmap_pm25_2024.html`.
+  Con panel fijo (query **2D** de `sql/02_tendencia_anual.sql`): estaciones con 183 días o
+  más medidos en ambos años —con un umbral de 75 % (274 días) solo quedarían 2—, media anual
+  por estación sobre medias diarias y promedio simple de esas medias (cada estación pesa
+  igual):
 
   | Panel | 2015 | 2024 | Cambio |
   |---|---|---|---|
-  | Mismas 7 estaciones de 2015 | 26.2 | 23.2 | **≈ −11 %** |
-  | Las mismas, sin San Bernabé (NO, solo 86 días medidos en 2024) | 26.3 | 22.1 | **≈ −16 %** |
+  | Red completa (2C) | 26.1 | 20.8 | **−20.0 %** |
+  | Panel fijo: 6 estaciones (CE, NE, NE2, SE, SO, SO2) | 25.7 | 22.1 | **−14.1 %** |
 
-  Es una estimación: usa medias horarias (no diarias) y no corrige la cobertura desigual
-  dentro de cada año (Obispado midió 220 días en 2015). La query **2D** de
-  `sql/02_tendencia_anual.sql` hace el cálculo con panel fijo y medias diarias. Exige 183 días
-  o más en ambos años, porque con un umbral de 75 % (274 días) solo quedarían 2 estaciones.
-  **Todavía no se ha ejecutado.**
+  El −20 % de la red completa arrastra el efecto de la composición; el −14.1 % del panel
+  fijo es la cifra comparable. Resultados en `outputs/02_tendencia_anualc.csv` y
+  `outputs/02_tendencia_anuald.csv`.
 
-- **Precisión del O3.** El +27.3 % se calcula sobre medias ya redondeadas a 3 decimales
-  (0.028 / 0.022 − 1). Con medias reales entre 0.0215 y 0.0225 (2015) y entre 0.0275 y 0.0285
-  (2024), el cambio puede ir de ≈ +22 % a ≈ +33 %. La query **2C** recalcula el cambio sin
-  redondeo intermedio y reporta el O3 en ppb con un decimal. **Todavía no se ha ejecutado.**
+- **Precisión del O3.** El +27.3 % citado antes salía de medias ya redondeadas a 3 decimales
+  (0.028 / 0.022 − 1). La query **2C** recalculó el cambio sin redondeo intermedio:
+  **21.6 → 27.9 ppb, +29.2 %** con la red completa. Con el panel fijo de 8 estaciones que
+  midieron O3 en ambos años (CE, N, NE, NO, NO2, SE, SE2, SO2), el alza es mayor:
+  **21.8 → 29.8 ppb, +36.8 %** (`outputs/02_tendencia_anuald.csv`).
 
 Serie del O3 (media de red, ppm): 0.022 (2015), 0.024, 0.026, 0.021 (2018), 0.028, 0.028,
 0.026, 0.026, 0.027, 0.028 (2024). Es más alta en 2019-2024 que en 2015-2016, con 2018 como
@@ -114,8 +117,9 @@ Serie anual (`outputs/04_contingenciasa.csv`):
 - **O3:** días en que la peor estación supera 0.090 ppm en una hora: 73 (2015) → 121 (2024).
   Días sobre 0.130 ppm: 4 → 20; los 20 de 2024 son el máximo del periodo. Los dos conteos usan el
   máximo entre estaciones, que sube solo con añadir estaciones: el salto de 2017 (95 días)
-  coincide con la entrada de tres estaciones. La query **4C** reporta el % de estación-días
-  sobre norma, que no depende del tamaño de la red. **Todavía no se ha ejecutado.**
+  coincide con la entrada de tres estaciones. La query **4C** lo normaliza por estación-día
+  y ya se ejecutó (`outputs/04_contingenciasc.csv`): 5.2 % de los estación-días sobre norma
+  en 2015 frente a 9.9 % en 2024 (máximo del periodo; los demás años van de 3.0 % a 8.9 %).
 - **PM2.5:** días en que la media de la red supera 41 µg/m³: 15 (2015) y 13 (2024). Este criterio
   usa la media de la red, no la peor estación, así que no es comparable con el de O3.
 

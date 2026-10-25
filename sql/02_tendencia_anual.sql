@@ -76,7 +76,7 @@ ORDER BY param, anio, horas_validas DESC;
 -- ------------------------------------------------------------
 -- 2C · 2015 vs 2024 con la red completa, sin redondeo intermedio
 --      (mismo indicador que 2A, O3 reportado en ppb con 1 decimal)
---      Pendiente de ejecutar: sus cifras no están en docs/ todavía.
+--      Ejecutada (2026-10-25): resultados en outputs/02_tendencia_anualc.csv.
 -- ------------------------------------------------------------
 WITH dias AS (
   SELECT
@@ -119,7 +119,7 @@ ORDER BY param;
 --      las medias anuales por estación (cada estación pesa igual).
 --      min_dias = 183 (la mitad del año): con 274 días (75 %) solo
 --      quedarían 2 estaciones de PM2.5 (outputs/02_tendencia_anualb.csv).
---      Pendiente de ejecutar: sus cifras no están en docs/ todavía.
+--      Ejecutada (2026-10-25): resultados en outputs/02_tendencia_anuald.csv.
 -- ------------------------------------------------------------
 WITH config AS (
   SELECT 183 AS min_dias
