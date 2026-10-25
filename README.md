@@ -1,5 +1,7 @@
 # aire-monterrey-bigquery
 
+[![tests](https://github.com/MVillarreal98/aire-monterrey-bigquery/actions/workflows/tests.yml/badge.svg)](https://github.com/MVillarreal98/aire-monterrey-bigquery/actions/workflows/tests.yml)
+
 **¿Respiró mejor Monterrey en 2024 que en 2015?** Análisis de calidad del aire del Área
 Metropolitana de Monterrey (AMM) con ~1.5 M mediciones horarias validadas de O3 y PM2.5
 (15 estaciones de la red SIMA, 2015-2024), descargadas de SINAICA/INECC y cargadas en
@@ -163,5 +165,5 @@ Desarrollado con asistencia de herramientas de IA. Los commits `fix: review …`
 corresponden a rondas de revisión del código y de las afirmaciones de los documentos,
 también asistidas por IA. Los 5 tests de `tests/test_pipeline.py` cubren solo los helpers de
 ingesta (codificación del nombre de archivo, meses y deduplicación). El workflow
-`.github/workflows/tests.yml` puede ejecutarlos en GitHub Actions en cada push
+`.github/workflows/tests.yml` se ejecuta en GitHub Actions en cada push
 a `main` y en cada pull request. El SQL y las figuras no tienen tests automatizados.
